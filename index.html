@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mackerel Tycoon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #00c6ff, #0072ff, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            animation: oceanWave 15s ease infinite;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        @keyframes oceanWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 60px;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 700;
+            color: #0277bd;
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #0288d1;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 96px;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 10px 30px rgba(0, 114, 255, 0.4);
+            letter-spacing: -2px;
+        }
+
+        .wave {
+            width: 120px;
+            height: 6px;
+            margin: 30px auto;
+            border-radius: 999px;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #e0f2fe;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero button {
+            margin-top: 50px;
+            border: none;
+            background: #ffffff;
+            color: #0288d1;
+            padding: 18px 42px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: #f0f9ff;
+        }
+
+        .slider-section {
+            padding: 100px 20px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .slider {
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            animation: slideFade 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideFade {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .slide h1 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .image {
+            width: 100%;
+            height: 420px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .image:hover {
+            transform: scale(1.02);
+        }
+
+        .bg-normal { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .bg-bronze { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .bg-silver { background: linear-gradient(135deg, #e2e2e2, #c9d6ff); color: #333; text-shadow: none; }
+        .bg-gold { background: linear-gradient(135deg, #f6d365, #fda085); }
+
+        .arrow {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #0288d1;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .arrow.left { left: 20px; }
+        .arrow.right { right: 20px; }
+        
+        .arrow:hover {
+            background: #0288d1;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .dots {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #0288d1;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .desc-section, .cooking-section, .game-section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #1f2937;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .fish-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .txt-normal { color: #0284c7; }
+        .txt-bronze { color: #9d6b53; }
+        .txt-silver { color: #64748b; }
+        .txt-gold { color: #ea580c; }
+
+        .recipe-card {
+            text-align: left;
+        }
+
+        .recipe-card h2 {
+            color: #0288d1;
+        }
+
+        #money-display {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ea580c;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        #game-board {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .game-panel {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .game-panel h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #0f766e;
+            font-weight: 700;
+        }
+
+        #fishing-area {
+            position: relative;
+            height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #a5f3fc 0%, #22d3ee 100%);
+            border-radius: 16px;
+            border: 3px dashed #0891b2;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        #fishing-area:hover { 
+            filter: brightness(0.9);
+            transform: scale(0.98);
+        }
+
+        #status-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #164e63;
+            margin-bottom: 20px;
+            height: 28px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+        }
+
+        #rod {
+            font-size: 64px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            transition: transform 0.1s;
+        }
+
+        #minigame-area {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #catch-bar-container {
+            width: 100%;
+            height: 28px;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 14px;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+            overflow: hidden;
+        }
+
+        #target-zone {
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            height: 100%;
+            opacity: 0.6;
+            transition: background-color 0.3s ease;
+        }
+
+        #cursor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: #1f2937;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .instruction { 
+            font-size: 14px; 
+            color: #4b5563; 
+            margin-top: 12px; 
+            font-weight: 600; 
+        }
+
+        #inventory-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            min-height: 160px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 12px;
+            padding: 15px;
+            background: rgba(255,255,255,0.8);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        #inventory-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        #inventory-list li:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn:hover:not(:disabled) { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn:disabled { 
+            background: #d1d5db; 
+            cursor: not-allowed; 
+            box-shadow: none; 
+            color: #9ca3af;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            color: #4b5563;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 80px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo">🐟 Mackerel</a>
+        <nav>
+            <a href="#" onclick="goToSlide(0)">Varieties</a>
+            <a href="#" onclick="scrollToSection('desc-section')">Details</a>
+            <a href="#" onclick="scrollToSection('cooking-section')">Recipes</a>
+            <a href="#" onclick="scrollToSection('game-section')">Mini-Game</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>Mackerel</h1>
+            <div class="wave"></div>
+            <p>The delicious gift from the deep blue sea.<br>Discover everything about mackerel easily and interactively.</p>
+            <button onclick="scrollToSection('slider-section')">Get Started</button>
+        </div>
+    </section>
+
+    <section id="slider-section" class="slider-section">
+        <div class="slider glass-panel">
+            <button class="arrow left">&#10094;</button>
+
+            <div class="slides">
+                <div class="slide active">
+                    <h1>Normal Mackerel</h1>
+                    <div class="image bg-normal">🌊 Oceanic Blue Mackerel</div>
+                </div>
+                <div class="slide">
+                    <h1>Bronze Mackerel</h1>
+                    <div class="image bg-bronze">🥉 Rustic Bronze Mackerel</div>
+                </div>
+                <div class="slide">
+                    <h1>Silver Mackerel</h1>
+                    <div class="image bg-silver">🥈 Shining Silver Mackerel</div>
+                </div>
+                <div class="slide">
+                    <h1>Golden Mackerel</h1>
+                    <div class="image bg-gold">🥇 Legendary Golden Mackerel</div>
+                </div>
+            </div>
+
+            <button class="arrow right">&#10095;</button>
+
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="desc-section" class="desc-section">
+        <div class="glass-panel">
+            <h1 class="section-header">📖 Fish Encyclopedia</h1>
+            <div class="grid-layout">
+                <div class="card">
+                    <div class="fish-icon">🐟</div>
+                    <h2 class="txt-normal">Normal Mackerel</h2>
+                    <p>The standard blue-backed mackerel commonly found on dining tables. Rich in DHA and loved globally as a nutritious staple.</p>
+                </div>
+                <div class="card">
+                    <div class="fish-icon">🥉</div>
+                    <h2 class="txt-bronze">Bronze Mackerel</h2>
+                    <p>A rare variant with a heavy bronze tint. Known for its firmer texture and deeper, savory flavor compared to regular breeds.</p>
+                </div>
+                <div class="card">
+                    <div class="fish-icon">🥈</div>
+                    <h2 class="txt-silver">Silver Mackerel</h2>
+                    <p>Radiant like moonlight, this silver-coated fish is legendary among anglers, celebrated for its exceptionally soft texture.</p>
+                </div>
+                <div class="card">
+                    <div class="fish-icon">👑</div>
+                    <h2 class="txt-gold">Golden Mackerel</h2>
+                    <p>The hidden treasure of the sea! Covered in gold from head to tail, landing one is said to bring eternal fortune.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cooking-section" class="cooking-section">
+        <div class="glass-panel">
+            <h1 class="section-header">🍳 Signature Recipes</h1>
+            <div class="grid-layout">
+                <div class="card recipe-card">
+                    <h2>Grilled Mackerel</h2>
+                    <p>Crispy on the outside, moist on the inside. Perfectly salted and inherently oily, making it the ultimate companion for a bowl of rice.</p>
+                </div>
+                <div class="card recipe-card">
+                    <h2>Braised Mackerel</h2>
+                    <p>Simmered slowly with thick slices of radish and aged kimchi in a spicy-sweet sauce. A flavor-packed traditional favorite.</p>
+                </div>
+                <div class="card recipe-card">
+                    <h2>Mackerel Bites</h2>
+                    <p>Boneless mackerel chunks fried to a crisp and tossed in a sweet and spicy glaze. A delightful treat loved by all ages.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="game-section" class="game-section">
+        <div class="glass-panel">
+            <h1 class="section-header">🎣 Golden Fishing Tycoon</h1>
+            <div style="text-align: center;">
+                <div id="money-display">Funds: <span id="money">0</span> G / 1,000,000 G</div>
+            </div>
+
+            <div id="game-board">
+                <div class="game-panel">
+                    <h2>Fishing Spot</h2>
+                    <div id="fishing-area" onclick="startFishing()">
+                        <div id="status-text">Click the rod to cast!</div>
+                        <div id="rod">🎣</div>
+                    </div>
+                    
+                    <div id="minigame-area">
+                        <div id="catch-bar-container">
+                            <div id="target-zone"></div>
+                            <div id="cursor"></div>
+                        </div>
+                        <p class="instruction">Press [SPACEBAR] at the right time!</p>
+                    </div>
+                </div>
+
+                <div class="game-panel">
+                    <h2>Inventory</h2>
+                    <ul id="inventory-list"></ul>
+                    <hr style="margin: 20px 0; border: none; border-top: 1px dashed rgba(0,0,0,0.1);">
+                    <h2>Marketplace</h2>
+                    <button id="sell-btn" class="btn" onclick="sellFish()">Sell All Catch</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Mackerel Tycoon. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+        }
+
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const leftArrow = document.querySelector('.arrow.left');
+        const rightArrow = document.querySelector('.arrow.right');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateSlider(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        rightArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+            updateSlider(currentIndex);
+        });
+
+        leftArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+            updateSlider(currentIndex);
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider(currentIndex);
+            });
+        });
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider(currentIndex);
+            scrollToSection('slider-section');
+        }
+
+        let money = 0;
+        const GOAL_MONEY = 1000000;
+        let inventory = [];
+        
+        let isFishing = false;
+        let isCatching = false;
+        let gameEnded = false;
+
+        let catchInterval;
+        let currentFish = null;
+        let cursorPosition = 0;
+        let cursorDirection = 1;
+        let cursorSpeed = 2;
+        
+        const TARGET_START = 40;
+        const TARGET_END = 60;
+
+        const FISH_DATA = [
+            { name: "Golden Mackerel", probability: 1, price: 500000, color: "#ea580c" },
+            { name: "Silver Mackerel", probability: 4, price: 50000, color: "#64748b" },
+            { name: "Bronze Mackerel", probability: 10.0, price: 10000, color: "#9d6b53" },
+            { name: "Normal Mackerel", probability: 35.0, price: 3000, color: "#0284c7" },
+            { name: "Salted Mackerel", probability: 50.0, price: 1000, color: "#451a03" }
+        ];
+
+        function getFishByProbability() {
+            const rand = Math.random() * 100;
+            let cumulativeProb = 0;
+            for (let fish of FISH_DATA) {
+                cumulativeProb += fish.probability;
+                if (rand < cumulativeProb) return fish;
+            }
+            return FISH_DATA[FISH_DATA.length - 1]; 
+        }
+
+        function getTargetColor(fishName) {
+            if (fishName === "Golden Mackerel") return "#ef4444";
+            if (fishName === "Silver Mackerel" || fishName === "Bronze Mackerel") return "#eab308";
+            return "#10b981";
+        }
+
+        function startFishing() {
+            if (isFishing || isCatching || gameEnded) return;
+            
+            isFishing = true;
+            const rod = document.getElementById("rod");
+            rod.style.transform = "rotate(15deg)";
+            document.getElementById("status-text").innerText = "Waiting for a bite...";
+            
+            const biteTime = Math.floor(Math.random() * 2000) + 2000;
+            
+            setTimeout(() => {
+                rod.style.transform = "rotate(-10deg)";
+                document.getElementById("status-text").innerText = "A bite! Press Space!";
+                currentFish = getFishByProbability();
+                startMinigame();
+            }, biteTime);
+        }
+
+        function startMinigame() {
+            isFishing = false;
+            isCatching = true;
+            cursorPosition = 0;
+            cursorDirection = 1;
+
+            if (currentFish.name === "Golden Mackerel") {
+                cursorSpeed = 3.5;
+            } else if (currentFish.name === "Silver Mackerel" || currentFish.name === "Bronze Mackerel") {
+                cursorSpeed = 2.5;
+            } else {
+                cursorSpeed = 1.5;
+            }
+
+            document.getElementById("minigame-area").style.display = "block";
+            document.getElementById("target-zone").style.backgroundColor = getTargetColor(currentFish.name);
+
+            catchInterval = setInterval(() => {
+                cursorPosition += cursorSpeed * cursorDirection;
+                if (cursorPosition >= 100 || cursorPosition <= 0) {
+                    cursorDirection *= -1;
+                }
+                document.getElementById("cursor").style.left = cursorPosition + "%";
+            }, 20);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && isCatching) {
+                e.preventDefault();
+                if (cursorPosition >= TARGET_START && cursorPosition <= TARGET_END) {
+                    successCatch();
+                } else {
+                    failCatch();
+                }
+            }
+        });
+
+        function failCatch() {
+            clearInterval(catchInterval);
+            isCatching = false;
+            document.getElementById("minigame-area").style.display = "none";
+            document.getElementById("rod").style.transform = "rotate(0deg)";
+            document.getElementById("status-text").innerText = "The fish got away...";
+            currentFish = null;
+            setTimeout(resetFishing, 1500);
+        }
+
+        function successCatch() {
+            clearInterval(catchInterval);
+            isCatching = false;
+            document.getElementById("minigame-area").style.display = "none";
+            document.getElementById("rod").style.transform = "rotate(0deg)";
+            
+            inventory.push(currentFish);
+            updateInventoryUI();
+            
+            document.getElementById("status-text").innerText = `Caught: ${currentFish.name}!`;
+            currentFish = null;
+            setTimeout(resetFishing, 1500);
+        }
+
+        function resetFishing() {
+            if(gameEnded) return;
+            document.getElementById("status-text").innerText = "Click the rod to cast!";
+            document.getElementById("cursor").style.left = "0%";
+        }
+
+        function updateInventoryUI() {
+            const list = document.getElementById("inventory-list");
+            list.innerHTML = "";
+            inventory.forEach(fish => {
+                const li = document.createElement("li");
+                li.innerHTML = `<span style="color:${fish.color}; font-weight:700;">${fish.name}</span> <span>${fish.price.toLocaleString()} G</span>`;
+                list.appendChild(li);
+            });
+            document.getElementById("sell-btn").disabled = inventory.length === 0;
+        }
+
+        function sellFish() {
+            if (inventory.length === 0) return;
+            let totalEarned = 0;
+            inventory.forEach(fish => totalEarned += fish.price);
+            money += totalEarned;
+            inventory = [];
+            
+            updateInventoryUI();
+            updateMoneyUI();
+            checkWinCondition();
+        }
+
+        function updateMoneyUI() {
+            document.getElementById("money").innerText = money.toLocaleString();
+        }
+
+        function checkWinCondition() {
+            if (money >= GOAL_MONEY && !gameEnded) {
+                gameEnded = true;
+                document.getElementById("status-text").innerText = "Tycoon Cleared!";
+                document.getElementById("status-text").style.color = "#ea580c";
+                
+                setTimeout(() => {
+                    alert(`Congratulations! You reached the goal of 1,000,000 G!\nFinal Balance: ${money.toLocaleString()} G`);
+                }, 100);
+            }
+        }
+
+        updateInventoryUI();
+        updateMoneyUI();
+    </script>
+</body>
+</html>
