@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mackerel Tycoon</title>
+    <title>kn-godenga</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 세련된 한글 폰트(Pretendard) 적용 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 
     <style>
+        :root {
+            --primary: #0288d1;
+            --primary-dark: #01579b;
+            --accent: #ea580c;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Inter", sans-serif;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
 
-        body {
-            background: linear-gradient(-45deg, #00c6ff, #0072ff, #4facfe, #00f2fe);
-            background-size: 400% 400%;
-            animation: oceanWave 15s ease infinite;
-            color: #111827;
-            overflow-x: hidden;
-        }
-
+    body {
+        /* Deep ocean animated gradient */
+        background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0369a1, #0ea5e9);
+        background-size: 400% 400%;
+        animation: oceanWave 15s ease infinite;
+        color: var(--text-dark);
+        overflow-x: hidden;
+    }
         @keyframes oceanWave {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        /* 공통 글래스모피즘 패널 스타일 */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 28px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
             padding: 40px;
         }
 
@@ -47,25 +55,29 @@
             left: 0;
             width: 100%;
             height: 80px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 60px;
             z-index: 100;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
 
         .logo {
             text-decoration: none;
-            font-size: 28px;
-            font-weight: 700;
-            color: #0277bd;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary-dark);
             cursor: pointer;
             letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         nav {
@@ -75,16 +87,31 @@
 
         nav a {
             text-decoration: none;
-            color: #374151;
+            color: var(--text-light);
             font-size: 16px;
             font-weight: 600;
             transition: 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
         nav a:hover {
-            color: #0288d1;
-            transform: translateY(-2px);
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .hero {
@@ -97,11 +124,12 @@
         }
 
         .hero h1 {
-            font-size: 96px;
-            font-weight: 800;
+            font-size: 100px;
+            font-weight: 900;
             color: #ffffff;
             text-shadow: 0 10px 30px rgba(0, 114, 255, 0.4);
             letter-spacing: -2px;
+            margin-bottom: 10px;
         }
 
         .wave {
@@ -116,7 +144,7 @@
         .hero p {
             margin-top: 20px;
             font-size: 22px;
-            color: #e0f2fe;
+            color: #f0f9ff;
             line-height: 1.6;
             font-weight: 500;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -126,208 +154,189 @@
             margin-top: 50px;
             border: none;
             background: #ffffff;
-            color: #0288d1;
-            padding: 18px 42px;
+            color: var(--primary);
+            padding: 18px 48px;
             border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         .hero button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
             background: #f0f9ff;
         }
 
-        .slider-section {
-            padding: 100px 20px 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .slider {
-            position: relative;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .slide {
-            display: none;
-            animation: slideFade 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slide.active {
-            display: block;
-        }
-
-        @keyframes slideFade {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .slide h1 {
-            font-size: 32px;
-            margin-bottom: 24px;
-            color: #1f2937;
-            font-weight: 700;
-        }
-
-        .image {
-            width: 100%;
-            height: 420px;
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .image:hover {
-            transform: scale(1.02);
-        }
-
-        .bg-normal { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .bg-bronze { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .bg-silver { background: linear-gradient(135deg, #e2e2e2, #c9d6ff); color: #333; text-shadow: none; }
-        .bg-gold { background: linear-gradient(135deg, #f6d365, #fda085); }
-
-        .arrow {
-            position: absolute;
-            top: 55%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            color: #0288d1;
-            border: none;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .arrow.left { left: 20px; }
-        .arrow.right { right: 20px; }
-        
-        .arrow:hover {
-            background: #0288d1;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .dots {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: rgba(0,0,0,0.15);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #0288d1;
-            width: 40px;
-            border-radius: 10px;
-        }
-
-        .desc-section, .cooking-section, .game-section {
-            padding: 60px 20px;
-            max-width: 1000px;
+        /* 공통 섹션 스타일 */
+        .desc-section, .game-section {
+            padding: 100px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-header {
-            font-size: 36px;
-            margin-bottom: 40px;
-            color: #1f2937;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #ffffff;
             text-align: center;
-            font-weight: 800;
+            font-weight: 900;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            letter-spacing: -1px;
+        }
+
+        /* 고등어 종류 및 상세 정보 카드 공통 스타일 */
+        .flex-container, .grid-layout {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
         }
 
         .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.5);
+        .variety-card, .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 40px 30px;
             text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 1;
+            min-width: 200px;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.8);
+        .variety-card:hover, .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .variety-card h3, .card h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .variety-card p, .card p {
+            color: var(--text-light);
+            font-size: 16px;
+            line-height: 1.6;
+            word-break: keep-all;
         }
 
         .fish-icon {
             font-size: 48px;
-            margin-bottom: 16px;
-            display: inline-block;
+            display: block;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
-        .card h2 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            font-weight: 700;
+        /* 슬라이더 스타일 */
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.85);
+            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .card p {
-            font-size: 15px;
-            color: #4b5563;
-            line-height: 1.7;
+        .slide {
+            display: none;
+            text-align: center;
         }
 
-        .txt-normal { color: #0284c7; }
-        .txt-bronze { color: #9d6b53; }
-        .txt-silver { color: #64748b; }
-        .txt-gold { color: #ea580c; }
-
-        .recipe-card {
-            text-align: left;
+        .slide.active {
+            display: block;
+            animation: fadeEffect 0.6s ease-in-out;
         }
 
-        .recipe-card h2 {
-            color: #0288d1;
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background-color: #e0f2fe; /* 이미지 없을 때 대비한 배경색 */
+        }
+
+        .slide h3 {
+            margin-top: 25px;
+            font-size: 28px;
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .slide p {
+            color: var(--text-light);
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .arrow {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0,0,0,0.05);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arrow:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow.left { left: -28px; }
+        .arrow.right { right: -28px; }
+
+        /* 게임 섹션 스타일 */
+        .game-section .section-header {
+            color: var(--text-dark);
+            text-shadow: none;
+            margin-bottom: 20px;
         }
 
         #money-display {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ea580c;
-            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 40px;
             background: rgba(255, 255, 255, 0.9);
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(234, 88, 12, 0.15);
             text-align: center;
+            border: 2px solid rgba(234, 88, 12, 0.1);
         }
 
         #game-board {
@@ -339,31 +348,31 @@
 
         .game-panel {
             background: rgba(255, 255, 255, 0.6);
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             flex: 1;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .game-panel h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 25px;
             color: #0f766e;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         #fishing-area {
             position: relative;
-            height: 260px;
+            height: 280px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: linear-gradient(180deg, #a5f3fc 0%, #22d3ee 100%);
-            border-radius: 16px;
-            border: 3px dashed #0891b2;
+            border-radius: 20px;
+            border: 4px dashed #0891b2;
             cursor: pointer;
             user-select: none;
             transition: all 0.2s ease;
@@ -371,39 +380,40 @@
         }
 
         #fishing-area:hover { 
-            filter: brightness(0.9);
+            filter: brightness(0.95);
             transform: scale(0.98);
+            border-color: #0e7490;
         }
 
         #status-text {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
             color: #164e63;
-            margin-bottom: 20px;
-            height: 28px;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+            margin-bottom: 25px;
+            height: 30px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.6);
         }
 
         #rod {
-            font-size: 64px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-            transition: transform 0.1s;
+            font-size: 72px;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #minigame-area {
             display: none;
-            margin-top: 20px;
+            margin-top: 30px;
             width: 100%;
         }
 
         #catch-bar-container {
             width: 100%;
-            height: 28px;
-            background-color: rgba(0,0,0,0.05);
-            border-radius: 14px;
+            height: 32px;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 16px;
             position: relative;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.15);
+            border: 2px solid rgba(255,255,255,0.8);
             overflow: hidden;
         }
 
@@ -412,50 +422,67 @@
             left: 40%;
             width: 20%;
             height: 100%;
-            opacity: 0.6;
+            opacity: 0.75;
             transition: background-color 0.3s ease;
         }
 
         #cursor {
             position: absolute;
-            top: 0;
+            top: -2px;
             left: 0;
-            width: 6px;
-            height: 100%;
+            width: 8px;
+            height: calc(100% + 4px);
             background-color: #1f2937;
             transform: translateX(-50%);
-            border-radius: 3px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
         .instruction { 
-            font-size: 14px; 
-            color: #4b5563; 
-            margin-top: 12px; 
-            font-weight: 600; 
+            font-size: 15px; 
+            color: var(--text-light); 
+            margin-top: 15px; 
+            font-weight: 700; 
+            background: rgba(255,255,255,0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
         #inventory-list {
             list-style: none;
             padding: 0;
             text-align: left;
-            min-height: 160px;
-            max-height: 200px;
+            min-height: 180px;
+            max-height: 220px;
             overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.6);
-            border-radius: 12px;
-            padding: 15px;
-            background: rgba(255,255,255,0.8);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            border: 2px solid rgba(255,255,255,0.8);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255,255,255,0.7);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 스크롤바 디자인 */
+        #inventory-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        #inventory-list::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.02);
+            border-radius: 4px;
+        }
+        #inventory-list::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.15);
+            border-radius: 4px;
         }
 
         #inventory-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
             display: flex;
             justify-content: space-between;
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 600;
         }
 
         #inventory-list li:last-child {
@@ -466,24 +493,25 @@
             background: linear-gradient(135deg, #06b6d4, #0891b2);
             color: white;
             border: none;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 18px 24px;
+            border-radius: 16px;
+            font-size: 18px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
-            font-weight: 700;
+            margin-top: 20px;
+            font-weight: 800;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
         }
 
         .btn:hover:not(:disabled) { 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(6, 182, 212, 0.4);
+            background: linear-gradient(135deg, #0891b2, #0e7490);
         }
 
         .btn:disabled { 
-            background: #d1d5db; 
+            background: #e5e7eb; 
             cursor: not-allowed; 
             box-shadow: none; 
             color: #9ca3af;
@@ -492,130 +520,135 @@
         footer {
             text-align: center;
             padding: 40px 20px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.4);
             backdrop-filter: blur(10px);
-            color: #4b5563;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin-top: 80px;
-            font-weight: 500;
+            color: var(--text-light);
+            border-top: 1px solid rgba(255,255,255,0.3);
+            margin-top: 100px;
+            font-weight: 600;
+        }
+
+        /* 반응형 모바일 최적화 */
+        @media (max-width: 768px) {
+            header { padding: 0 20px; }
+            nav { display: none; } /* 모바일에서는 임시로 네비게이션 숨김 */
+            .hero h1 { font-size: 60px; }
+            #game-board { flex-direction: column; }
+            .arrow.left { left: 10px; }
+            .arrow.right { right: 10px; }
         }
     </style>
 </head>
 
 <body>
     <header>
-        <a href="#" class="logo">🐟 Mackerel</a>
+        <a href="#" class="logo">🐟 고등어 타이쿤</a>
         <nav>
-            <a href="#" onclick="goToSlide(0)">Varieties</a>
-            <a href="#" onclick="scrollToSection('desc-section')">Details</a>
-            <a href="#" onclick="scrollToSection('cooking-section')">Recipes</a>
-            <a href="#" onclick="scrollToSection('game-section')">Mini-Game</a>
+            <a href="#varieties-section" onclick="scrollToSection('varieties-section')">종류</a>
+            <a href="#desc-section" onclick="scrollToSection('desc-section')">상세 정보</a>
+            <a href="#cooking-section" onclick="scrollToSection('cooking-section')">레시피</a>
+            <a href="#game-section" onclick="scrollToSection('game-section')">미니게임</a>
         </nav>
     </header>
 
     <section class="hero">
         <div>
-            <h1>Mackerel</h1>
+            <h1>고등어</h1>
             <div class="wave"></div>
-            <p>The delicious gift from the deep blue sea.<br>Discover everything about mackerel easily and interactively.</p>
-            <button onclick="scrollToSection('slider-section')">Get Started</button>
+            <p>푸른 바다가 선사하는 맛있는 영양 만점 선물.<br>고등어의 모든 것을 쉽고 재미있게 알아보세요.</p>
+            <button onclick="scrollToSection('game-section')">타이쿤 시작하기</button>
         </div>
     </section>
 
-    <section id="slider-section" class="slider-section">
-        <div class="slider glass-panel">
-            <button class="arrow left">&#10094;</button>
-
-            <div class="slides">
-                <div class="slide active">
-                    <h1>Normal Mackerel</h1>
-                    <div class="image bg-normal">🌊 Oceanic Blue Mackerel</div>
-                </div>
-                <div class="slide">
-                    <h1>Bronze Mackerel</h1>
-                    <div class="image bg-bronze">🥉 Rustic Bronze Mackerel</div>
-                </div>
-                <div class="slide">
-                    <h1>Silver Mackerel</h1>
-                    <div class="image bg-silver">🥈 Shining Silver Mackerel</div>
-                </div>
-                <div class="slide">
-                    <h1>Golden Mackerel</h1>
-                    <div class="image bg-gold">🥇 Legendary Golden Mackerel</div>
-                </div>
-            </div>
-
-            <button class="arrow right">&#10095;</button>
-
-            <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
+    <!-- 고등어 종류 섹션 -->
+    <section id="varieties-section" class="desc-section">
+        <h2 class="section-header">다양한 고등어 종류</h2>
+        <div class="flex-container">
+            <article class="variety-card">
+                <h3>일반 고등어</h3>
+                <p>가장 기본적이고 대중적으로 사랑받는 담백한 맛</p>
+            </article>
+            <article class="variety-card">
+                <h3>동 고등어</h3>
+                <p>일반 고등어보다 살이 단단하고 식감이 훌륭함</p>
+            </article>
+            <article class="variety-card">
+                <h3>은 고등어</h3>
+                <p>기름기가 적당히 올라 풍미가 훌륭하며 가격이 높음</p>
+            </article>
+            <article class="variety-card">
+                <h3>황금 고등어</h3>
+                <p>전설 속의 고등어. 맛이 환상적이며 엄청난 가치를 지님</p>
+            </article>
         </div>
     </section>
 
+    <!-- 고등어 상세 정보 섹션 -->
     <section id="desc-section" class="desc-section">
-        <div class="glass-panel">
-            <h1 class="section-header">📖 Fish Encyclopedia</h1>
-            <div class="grid-layout">
-                <div class="card">
-                    <div class="fish-icon">🐟</div>
-                    <h2 class="txt-normal">Normal Mackerel</h2>
-                    <p>The standard blue-backed mackerel commonly found on dining tables. Rich in DHA and loved globally as a nutritious staple.</p>
-                </div>
-                <div class="card">
-                    <div class="fish-icon">🥉</div>
-                    <h2 class="txt-bronze">Bronze Mackerel</h2>
-                    <p>A rare variant with a heavy bronze tint. Known for its firmer texture and deeper, savory flavor compared to regular breeds.</p>
-                </div>
-                <div class="card">
-                    <div class="fish-icon">🥈</div>
-                    <h2 class="txt-silver">Silver Mackerel</h2>
-                    <p>Radiant like moonlight, this silver-coated fish is legendary among anglers, celebrated for its exceptionally soft texture.</p>
-                </div>
-                <div class="card">
-                    <div class="fish-icon">👑</div>
-                    <h2 class="txt-gold">Golden Mackerel</h2>
-                    <p>The hidden treasure of the sea! Covered in gold from head to tail, landing one is said to bring eternal fortune.</p>
-                </div>
+        <h2 class="section-header">고등어 상세 정보</h2>
+        <div class="grid-layout">
+            <div class="card">
+                <span class="fish-icon">🌊</span>
+                <h2>주요 서식지</h2>
+                <p>한국 연근해, 인천 앞바다 등 수온이 적당한 바다</p>
+            </div>
+            <div class="card">
+                <span class="fish-icon">🔥</span>
+                <h2>풍부한 육즙</h2>
+                <p>구웠을 때 겉은 바삭하고 속은 촉촉한 생선 고유의 고소한 기름기</p>
+            </div>
+            <div class="card">
+                <span class="fish-icon">🧠</span>
+                <h2>영양 성분</h2>
+                <p>오메가-3 지방산과 DHA가 풍부해 두뇌 발달과 혈관 건강에 탁월</p>
+            </div>
+            <div class="card">
+                <span class="fish-icon">🍽️</span>
+                <h2>추천 메뉴</h2>
+                <p>매콤한 고등어조림, 밥도둑 고등어구이, 신선한 고등어회</p>
             </div>
         </div>
     </section>
 
-    <section id="cooking-section" class="cooking-section">
-        <div class="glass-panel">
-            <h1 class="section-header">🍳 Signature Recipes</h1>
-            <div class="grid-layout">
-                <div class="card recipe-card">
-                    <h2>Grilled Mackerel</h2>
-                    <p>Crispy on the outside, moist on the inside. Perfectly salted and inherently oily, making it the ultimate companion for a bowl of rice.</p>
-                </div>
-                <div class="card recipe-card">
-                    <h2>Braised Mackerel</h2>
-                    <p>Simmered slowly with thick slices of radish and aged kimchi in a spicy-sweet sauce. A flavor-packed traditional favorite.</p>
-                </div>
-                <div class="card recipe-card">
-                    <h2>Mackerel Bites</h2>
-                    <p>Boneless mackerel chunks fried to a crisp and tossed in a sweet and spicy glaze. A delightful treat loved by all ages.</p>
-                </div>
+    <!-- 고등어 레시피 섹션 -->
+    <section id="cooking-section" class="desc-section">
+        <h2 class="section-header">인기 고등어 레시피</h2>
+        
+        <div class="slider-container">
+            <!-- 첫 번째 슬라이드 -->
+            <div class="slide active">
+                <!-- 실제 이미지가 없을 때를 대비해 세련된 플레이스홀더를 활용하거나 CSS로 공간 확보 -->
+                <img src="고등어조림.png" alt="고등어조림" onerror="this.src='https://images.unsplash.com/photo-1544681280-d25a782adc9b?auto=format&fit=crop&q=80&w=800'">
+                <h3>매콤 칼칼 고등어조림</h3>
+                <p>무에 양념이 쏙 배어들어 밥 두 공기는 거뜬한 최고의 밥도둑</p>
             </div>
+
+            <!-- 두 번째 슬라이드 -->
+            <div class="slide">
+                <img src="고등어회.png" alt="고등어회" onerror="this.src='https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&q=80&w=800'">
+                <h3>제주식 쫀득 고등어회</h3>
+                <p>비린내 없이 쫀득하고 고소한 식감이 일품인 신선한 회</p>
+            </div>
+            
+            <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
         </div>
     </section>
 
+    <!-- 타이쿤 미니게임 섹션 -->
     <section id="game-section" class="game-section">
         <div class="glass-panel">
-            <h1 class="section-header">🎣 Golden Fishing Tycoon</h1>
+            <h1 class="section-header" style="color: var(--text-dark);">🎣 황금 낚시 타이쿤</h1>
             <div style="text-align: center;">
-                <div id="money-display">Funds: <span id="money">0</span> G / 1,000,000 G</div>
+                <div id="money-display">보유 자금: <span id="money">0</span> G / 1,000,000 G</div>
             </div>
 
             <div id="game-board">
+                <!-- 낚시 패널 -->
                 <div class="game-panel">
-                    <h2>Fishing Spot</h2>
+                    <h2>바다 낚시터</h2>
                     <div id="fishing-area" onclick="startFishing()">
-                        <div id="status-text">Click the rod to cast!</div>
+                        <div id="status-text">낚시대를 클릭하여 찌를 던지세요!</div>
                         <div id="rod">🎣</div>
                     </div>
                     
@@ -624,68 +657,49 @@
                             <div id="target-zone"></div>
                             <div id="cursor"></div>
                         </div>
-                        <p class="instruction">Press [SPACEBAR] at the right time!</p>
+                        <p class="instruction">게이지가 색상 영역에 왔을 때 [스페이스바]를 누르세요!</p>
                     </div>
                 </div>
 
+                <!-- 인벤토리 및 어시장 패널 -->
                 <div class="game-panel">
-                    <h2>Inventory</h2>
+                    <h2>어망 (인벤토리)</h2>
                     <ul id="inventory-list"></ul>
-                    <hr style="margin: 20px 0; border: none; border-top: 1px dashed rgba(0,0,0,0.1);">
-                    <h2>Marketplace</h2>
-                    <button id="sell-btn" class="btn" onclick="sellFish()">Sell All Catch</button>
+                    <hr style="margin: 25px 0; border: none; border-top: 2px dashed rgba(0,0,0,0.1);">
+                    <h2>수산물 시장</h2>
+                    <button id="sell-btn" class="btn" onclick="sellFish()">잡은 고등어 모두 팔기</button>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Mackerel Tycoon. All Rights Reserved.</p>
+        <p>© 2026 고등어 타이쿤 (Mackerel Tycoon). 모든 권리 보유.</p>
     </footer>
 
     <script>
+        // 부드러운 스크롤 이동
         function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+            const element = document.getElementById(id);
+            if(element) element.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
 
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const leftArrow = document.querySelector('.arrow.left');
-        const rightArrow = document.querySelector('.arrow.right');
-        
-        let currentIndex = 0;
-        const totalSlides = slides.length;
-
-        function updateSlider(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
+        // 이미지 슬라이더 로직
+        let currentSlideIndex = 0;
+        function moveSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = currentSlideIndex + direction;
+            
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            } else if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            }
+            slides[currentSlideIndex].classList.add('active');
         }
 
-        rightArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
-            updateSlider(currentIndex);
-        });
-
-        leftArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
-            updateSlider(currentIndex);
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                updateSlider(currentIndex);
-            });
-        });
-
-        function goToSlide(index) {
-            currentIndex = index;
-            updateSlider(currentIndex);
-            scrollToSection('slider-section');
-        }
-
+        // ----------------- 타이쿤 미니게임 로직 -----------------
         let money = 0;
         const GOAL_MONEY = 1000000;
         let inventory = [];
@@ -703,12 +717,13 @@
         const TARGET_START = 40;
         const TARGET_END = 60;
 
+        // 물고기 데이터 한글화 및 조정
         const FISH_DATA = [
-            { name: "Golden Mackerel", probability: 1, price: 500000, color: "#ea580c" },
-            { name: "Silver Mackerel", probability: 4, price: 50000, color: "#64748b" },
-            { name: "Bronze Mackerel", probability: 35.0, price: 3000, color: "#9d6b53" },
-            { name: "Normal Mackerel", probability: 10.0, price: 10000, color: "#0284c7" },
-            { name: "Salted Mackerel", probability: 50.0, price: 1000, color: "#451a03" }
+            { name: "황금 고등어", probability: 1.0, price: 500000, color: "#ea580c" },
+            { name: "은 고등어", probability: 4.0, price: 50000, color: "#64748b" },
+            { name: "동 고등어", probability: 10.0, price: 10000, color: "#9d6b53" },
+            { name: "일반 고등어", probability: 35.0, price: 3000, color: "#0284c7" },
+            { name: "간고등어 고등어", probability: 50.0, price: 1000, color: "#451a03" }
         ];
 
         function getFishByProbability() {
@@ -722,9 +737,9 @@
         }
 
         function getTargetColor(fishName) {
-            if (fishName === "Golden Mackerel") return "#ef4444";
-            if (fishName === "Silver Mackerel" || fishName === "Bronze Mackerel") return "#eab308";
-            return "#10b981";
+            if (fishName === "황금 고등어") return "#ef4444"; // 빨간색 (매우 어려움)
+            if (fishName === "은 고등어" || fishName === "동 고등어") return "#eab308"; // 노란색
+            return "#10b981"; // 초록색 (일반)
         }
 
         function startFishing() {
@@ -732,14 +747,15 @@
             
             isFishing = true;
             const rod = document.getElementById("rod");
-            rod.style.transform = "rotate(15deg)";
-            document.getElementById("status-text").innerText = "Waiting for a bite...";
+            rod.style.transform = "rotate(25deg)";
+            document.getElementById("status-text").innerText = "입질을 기다리는 중...";
             
-            const biteTime = Math.floor(Math.random() * 2000) + 2000;
+            const biteTime = Math.floor(Math.random() * 2000) + 1500;
             
             setTimeout(() => {
-                rod.style.transform = "rotate(-10deg)";
-                document.getElementById("status-text").innerText = "A bite! Press Space!";
+                if(gameEnded) return;
+                rod.style.transform = "rotate(-15deg)";
+                document.getElementById("status-text").innerText = "입질이 왔습니다! 스페이스바!";
                 currentFish = getFishByProbability();
                 startMinigame();
             }, biteTime);
@@ -751,12 +767,12 @@
             cursorPosition = 0;
             cursorDirection = 1;
 
-            if (currentFish.name === "Golden Mackerel") {
-                cursorSpeed = 3.5;
-            } else if (currentFish.name === "Silver Mackerel" || currentFish.name === "Bronze Mackerel") {
-                cursorSpeed = 2.5;
+            if (currentFish.name === "황금 고등어") {
+                cursorSpeed = 4.0;
+            } else if (currentFish.name === "은 고등어" || currentFish.name === "동 고등어") {
+                cursorSpeed = 2.8;
             } else {
-                cursorSpeed = 1.5;
+                cursorSpeed = 1.8;
             }
 
             document.getElementById("minigame-area").style.display = "block";
@@ -787,7 +803,7 @@
             isCatching = false;
             document.getElementById("minigame-area").style.display = "none";
             document.getElementById("rod").style.transform = "rotate(0deg)";
-            document.getElementById("status-text").innerText = "The fish got away...";
+            document.getElementById("status-text").innerText = "물고기가 도망갔습니다...";
             currentFish = null;
             setTimeout(resetFishing, 1500);
         }
@@ -801,25 +817,31 @@
             inventory.push(currentFish);
             updateInventoryUI();
             
-            document.getElementById("status-text").innerText = `Caught: ${currentFish.name}!`;
+            document.getElementById("status-text").innerText = `야호! [${currentFish.name}] 획득!`;
             currentFish = null;
             setTimeout(resetFishing, 1500);
         }
 
         function resetFishing() {
             if(gameEnded) return;
-            document.getElementById("status-text").innerText = "Click the rod to cast!";
+            document.getElementById("status-text").innerText = "낚시대를 클릭하여 찌를 던지세요!";
             document.getElementById("cursor").style.left = "0%";
         }
 
         function updateInventoryUI() {
             const list = document.getElementById("inventory-list");
             list.innerHTML = "";
-            inventory.forEach(fish => {
-                const li = document.createElement("li");
-                li.innerHTML = `<span style="color:${fish.color}; font-weight:700;">${fish.name}</span> <span>${fish.price.toLocaleString()} G</span>`;
-                list.appendChild(li);
-            });
+            
+            if(inventory.length === 0) {
+                list.innerHTML = `<li style="color:#9ca3af; justify-content:center; border:none; margin-top:20px;">어망이 비어있습니다.</li>`;
+            } else {
+                inventory.forEach(fish => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span style="color:${fish.color}; font-weight:800;">${fish.name}</span> <span style="color:var(--text-dark);">${fish.price.toLocaleString()} G</span>`;
+                    list.appendChild(li);
+                });
+            }
+            
             document.getElementById("sell-btn").disabled = inventory.length === 0;
         }
 
@@ -842,15 +864,16 @@
         function checkWinCondition() {
             if (money >= GOAL_MONEY && !gameEnded) {
                 gameEnded = true;
-                document.getElementById("status-text").innerText = "Tycoon Cleared!";
+                document.getElementById("status-text").innerText = "🎉 타이쿤 클리어! 🎉";
                 document.getElementById("status-text").style.color = "#ea580c";
                 
                 setTimeout(() => {
-                    alert(`Congratulations! You reached the goal of 1,000,000 G!\nFinal Balance: ${money.toLocaleString()} G`);
-                }, 100);
+                    alert(`축하합니다! 목표 금액인 1,000,000 G를 달성하셨습니다!\n최종 잔액: ${money.toLocaleString()} G`);
+                }, 300);
             }
         }
 
+        // 초기화 호출
         updateInventoryUI();
         updateMoneyUI();
     </script>
